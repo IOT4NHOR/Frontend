@@ -1,42 +1,142 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
+.app-container {
+  min-height: 100vh;
+  background-color: #f3f4f6;
+}
+
+.navbar {
+  background-color: #3b82f6;
+  color: white;
+  padding: 1rem;
   text-align: center;
+  font-size: 1.5rem;
+  font-weight: bold;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
-}
-
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 2rem;
 }
 
 .card {
-  padding: 2em;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 1.5rem;
+  width: 90%; /* Use percentage for responsiveness */
+  max-width: 600px; /* Increase max-width for larger screens */
+  text-align: center;
 }
 
-.read-the-docs {
-  color: #888;
+.font-title {
+  font-size: 1.5rem;
+  color: #ffffff;
+  margin-bottom: 1rem;
+  font-weight: bold;
+}
+
+.grid-container {
+  display: grid;
+  grid-template-areas:
+    "top top top"
+    "left table right"
+    "bottom bottom bottom";
+  grid-template-rows: 1fr 2fr 1fr;
+  grid-template-columns: 1fr 2fr 1fr;
+  gap: 10px;
+  width: 100%;
+  max-width: 400px;
+  height: 300px;
+  margin: 0 auto;
+}
+
+.table {
+  grid-area: table;
+  background: #001487e4;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  color: #ffffff;
+  animation-name: rotate;
+  animation-duration: 0.5s;
+  animation-timing-function: linear;
+  transform-origin: center; 
+  will-change: transform; 
+
+}
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+    
+  }
+  
+}
+.chair {
+  
+  background-image: url('./assets/occu.png'); /* Set the image */
+  background-size: cover; /* Ensure the image covers the chair container */
+  background-position: center; /* Center the image */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.875rem;
+  color: white;
+  height: 50px;
+  width: 90px;
+  animation-name: rotate;
+  animation-duration: 1s;
+  animation-timing-function: linear;
+  transform-origin: center;
+  will-change: transform;
+
+}
+
+.chair.top {
+  grid-area: top;
+  justify-self: center;
+}
+
+.chair.left {
+  grid-area: left;
+  align-self: center;
+  justify-self: start;
+}
+
+.chair.right {
+  grid-area: right;
+  align-self: center;
+  justify-self: end;
+}
+
+.chair.bottom {
+  grid-area: bottom;
+  justify-self: center;
+  margin-top: 5vh;
+}
+
+.occupied-false {
+  background-image: url('./assets/nooccu.png');
+}
+
+.status {
+  font-size: 1rem;
+  margin-top: 1rem;
+}
+
+/* Media Query for larger screens */
+@media (min-width: 768px) {
+  .grid-container {
+    max-width: 600px; /* Make the grid-container larger on desktop */
+    height: 400px; /* Increase height for more space */
+  }
+
+  .card {
+    width: 50%; /* Adjust the card width to 50% of the screen on large devices */
+  }
 }
