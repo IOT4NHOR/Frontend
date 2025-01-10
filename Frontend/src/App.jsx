@@ -88,7 +88,7 @@ function App() {
     const fetchUpdatedData = async () => {
       try {
         const response = await fetch(
-          "http://iot4gler-iotsmartcam.scnd.space:3000/"
+          "http://iot4gler-iotsmartcam.scnd.space:3000/latest"
         );
         if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
         
