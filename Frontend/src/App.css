@@ -1,12 +1,24 @@
 .app-container {
   min-height: 100vh;
-  background: linear-gradient(to bottom, #fefcea, #f1da36);
+  background: linear-gradient(120deg, #ffb35c, #fff1c9, #fad0c4);
+  background-size: 200% 200%;
+  animation: gradient-animation 10s ease infinite;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 }
-
+@keyframes gradient-animation {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
 /* Navbar styling */
 .navbar {
   background-color: #f66d3b;  /* Custom color */
@@ -172,7 +184,9 @@
   margin-top: 4rem; /* Add top margin to avoid overlap with navbar */
 }
 .status-out{
-  padding: 1vh;
+  margin-top: 1rem;
+  padding: 1rem;
+  font-weight: bold;
   background-color: white;
 }
 .grid-container {
@@ -183,12 +197,12 @@
     "bottom bottom bottom";
   grid-template-rows: 1fr 2fr 1fr;
   grid-template-columns: 1fr 2fr 1fr;
-  gap: 10px;
-  width: 90vw; /* Adjust width for responsiveness */
+  
+  width: 80vw; /* Adjust width for responsiveness */
   max-width: 1000px; /* Increase max-width for larger screens */
+  margin-top: 18vh;
+  height: 400px; /* Increase height for larger table and chairs */
 
-  height: 500px; /* Increase height for larger table and chairs */
-  margin-top: 10vh;
 }
 
 .table {
@@ -263,31 +277,30 @@
 }
 .status-out {
   font-size: 1rem;
-  margin-top: 1rem;
+  margin-top: 6rem;
 }
 
 /* Media Query for larger screens */
-@media (min-width: 768px) {
+@media (max-width: 768px) {
   .grid-container {
     max-width: 800px;
     height: 600px;
   }
-
   .card {
     width: 50%; /* Adjust the card width to 50% of the screen on large devices */
   } 
 
 }
 
-@media (max-width: 420px) {
+@media (max-width: 450px) {
 
   .chair{
     height: 50px;
     width: 75px;
-  }
-  .status-out{
     display: none;
+  
   }
+  
 
  
   

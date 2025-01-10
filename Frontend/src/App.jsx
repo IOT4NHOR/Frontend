@@ -1,4 +1,4 @@
-import  { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import "./App.css";
 function App() {
   const [tableData, setTableData] = useState({
@@ -17,7 +17,10 @@ function App() {
   const formatDateTime = (dateTime) => {
     const [datePart] = dateTime.split("T");
     const [year, month, day] = datePart.split("-");
-    return `วันที่ ${parseInt(day, 10)} เดือน ${parseInt(month, 10)} ปี ${year}`;
+    return `วันที่ ${parseInt(day, 10)} เดือน ${parseInt(
+      month,
+      10
+    )} ปี ${year}`;
   };
 
   const formatTime = (dateTime) => {
@@ -35,7 +38,9 @@ function App() {
     ];
 
     return chairs.map((chair) =>
-      chair.id <= people ? { ...chair, occupied: true } : { ...chair, occupied: false }
+      chair.id <= people
+        ? { ...chair, occupied: true }
+        : { ...chair, occupied: false }
     );
   };
 
@@ -43,22 +48,32 @@ function App() {
     const fetchInitialData = async () => {
       try {
         setLoading(true);
-        const response = await fetch("http://iot4gler-iotsmartcam.scnd.space:3000/");
-        if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
+        const response = await fetch(
+          "http://iot4gler-iotsmartcam.scnd.space:3000/"
+        );
+        if (!response.ok)
+          throw new Error(`HTTP error! Status: ${response.status}`);
         const data = await response.json();
+
+        // ค้นหาข้อมูลล่าสุด
+        const latestData = data[data.length - 1];
 
         const updatedData = {
           room: 1,
-          year: new Date(data[0]?.date_time).getFullYear(),
-          month: new Date(data[0]?.date_time).getMonth() + 1,
-          day: new Date(data[0]?.date_time).getDate(),
-          people: data[0]?.people || 0,
-          chairs: updateChairs(data[0]?.people || 0),
+          year: new Date(latestData?.date_time).getFullYear(),
+          month: new Date(latestData?.date_time).getMonth() + 1,
+          day: new Date(latestData?.date_time).getDate(),
+          people: latestData?.people || 0,
+          chairs: updateChairs(latestData?.people || 0),
+          object: latestData?.object || [],
         };
-
+        
         setTableData(updatedData);
-        setCurrentTime(formatTime(data[0]?.date_time));
+        setCurrentTime(formatTime(latestData?.date_time));
         setError(null);
+
+        // ดึง object ล่าสุด
+        console.log("Latest Object:", latestData?.object || []);
       } catch (err) {
         setError(err.message);
       } finally {
@@ -72,28 +87,41 @@ function App() {
   useEffect(() => {
     const fetchUpdatedData = async () => {
       try {
-        const response = await fetch("http://iot4gler-iotsmartcam.scnd.space:3000/");
+        const response = await fetch(
+          "http://iot4gler-iotsmartcam.scnd.space:3000/"
+        );
         if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
+        
         const data = await response.json();
-
-        setTableData((prevState) => ({
-          ...prevState,
-          people: data[0]?.people || 0,
-          chairs: updateChairs(data[0]?.people || 0),
-        }));
-        setCurrentTime(formatTime(data[0]?.date_time));
-        setError(null);
+  
+        // ตรวจสอบว่ามีข้อมูลหรือไม่
+        if (data.length > 0) {
+          const latestData = data[data.length - 1]; // ดึงข้อมูลล่าสุดจากรายการท้ายสุด
+  
+          setTableData((prevState) => ({
+            ...prevState,
+            people: latestData?.people || 0,
+            chairs: updateChairs(latestData?.people || 0),
+          }));
+          setCurrentTime(formatTime(latestData?.date_time));
+        } else {
+          console.warn("No data received from API.");
+        }
+  
+        setError(null); // ล้างข้อผิดพลาดถ้ามี
       } catch (err) {
-        setError(err.message);
+        setError(err.message); // แสดงข้อผิดพลาด
       }
     };
-
+  
     const interval = setInterval(() => {
-      fetchUpdatedData();
-    }, 10000);
-    return () => clearInterval(interval);
+      fetchUpdatedData(); // เรียกข้อมูลใหม่ทุก 5 วินาที
+    }, 5000);
+  
+    return () => clearInterval(interval); // ลบ interval เมื่อ component ถูกทำลาย
   }, []);
-
+  
+  
   if (loading) return <div>Loading...</div>;
   if (error) return <div>Error: {error}</div>;
 
@@ -108,10 +136,17 @@ function App() {
         </div>
         <div className="middle">
           ห้องที่ {tableData.room}
-          <li>{formatDateTime(`${tableData.year}-${tableData.month}-${tableData.day}`)}</li>
+          <li>
+            {formatDateTime(
+              `${tableData.year}-${tableData.month}-${tableData.day}`
+            )}
+          </li>
         </div>
         <div className="right">
-          <div className="hamburger-menu" onClick={() => setMenuOpen(!menuOpen)}>
+          <div
+            className="hamburger-menu"
+            onClick={() => setMenuOpen(!menuOpen)}
+          >
             <div></div>
             <div></div>
             <div></div>
@@ -140,7 +175,7 @@ function App() {
                 : index === 2
                 ? "right"
                 : "bottom"
-            } ${chair.occupied ? "occupied" : "occupied-false"}`}
+            } ${chair.occupied ? "occupied-false" : "occupied"}`}
           >
             {chair.id || ""}
           </div>
@@ -148,11 +183,16 @@ function App() {
         <div className="table">
           โต๊ะ 1
           <p className="status-in">
-            จำนวนคนที่นั่ง: {" "}
-            <span>{tableData.chairs.filter((chair) => chair.occupied).length}</span> / {" "}
-            {tableData.chairs.length}
+            จำนวนคนที่นั่ง:{" "}
+            <span>
+              {tableData.chairs.filter((chair) => chair.occupied).length}
+            </span>{" "}
+            / {tableData.chairs.length}
           </p>
-          <p className="status-in">ของที่วาง </p>
+          <p className="status-in">
+            วัตถุบนโต๊ะ:{" "}
+            {tableData.object ? tableData.object.join(", ") : "ไม่มีข้อมูล"}
+          </p>
         </div>
       </div>
 

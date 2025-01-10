@@ -6,6 +6,8 @@
 body{
     font-family: "Anuphan", serif;
     font-weight: 200;
+    overflow: hidden;
+    width: 100%;
 }
 li{
     list-style: none;
