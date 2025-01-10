@@ -1,6 +1,7 @@
 .app-container {
   min-height: 100vh;
-  background: linear-gradient(120deg, #ffb35c, #fff1c9, #fad0c4);
+  /* background: linear-gradient(120deg, #ffb35c, #fff1c9, #fad0c4); */
+  background-color: black;
   background-size: 200% 200%;
   animation: gradient-animation 10s ease infinite;
   display: flex;
@@ -21,7 +22,7 @@
 }
 /* Navbar styling */
 .navbar {
-  background-color: #f66d3b;  /* Custom color */
+  background-color: #960000;  /* Custom color */
   color: white;
   padding: 1rem;
   display: flex;
@@ -131,7 +132,7 @@
   position: absolute;
   top: 60px;
   right: 10px;
-  background-color: #ff9e7a;
+  background-color: #ff7c7c;
   padding: 1rem;
   border-radius: 5px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -207,7 +208,7 @@
 
 .table {
   grid-area: table;
-  background: #ffa72ce4;
+  background: #ff2c2ce4;
   box-shadow: 0 4px 6px rgba(0, 0, 1, 0.5);
   border-radius: 8px;
   display: flex;
