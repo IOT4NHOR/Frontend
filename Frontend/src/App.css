@@ -1,308 +1,164 @@
-.app-container {
-  min-height: 100vh;
-  /* background: linear-gradient(120deg, #ffb35c, #fff1c9, #fad0c4); */
-  background-color: black;
-  background-size: 200% 200%;
-  animation: gradient-animation 10s ease infinite;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+:root {
+  --main-color: #ecf0f1;
+  --point-color: #555;
+  --size: 5px;
 }
-@keyframes gradient-animation {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
-}
-/* Navbar styling */
-.navbar {
-  background-color: #960000;  /* Custom color */
-  color: white;
-  padding: 1rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 1;
-  font-size: 1.5rem;
-  font-weight: bold;
+
+.loader {
+	background-color: var(--main-color);
+	overflow: hidden;
   width: 100%;
-}
-.record-container {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  padding: 0.25em;
-  background-color: rgb(99, 99, 99);
-  border-radius: 0.25em;
-
-}
-
-.recording-circle {
-  background-color: red;
-  width: 1em;
-  height: 1em;
-  border-radius: 50%;
-  animation: ease pulse 0.5s infinite;
-  margin-right: 0.25em;
-}
-
-.recording-text {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
-    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
-  font-size: 0.75em;
-  color: white;
-}
-
-@keyframes pulse {
-  0% {
-    background-color: red;
-  }
-  50% {
-    background-color: #f06c6c;
-  }
-  100% {
-    background-color: red;
-  }
-}
-
-
-/* Left side for Logo */
-.navbar .left {
+  height: 100%;
+  position: fixed;
+  top: 0; left: 0;
   display: flex;
   align-items: center;
+  align-content: center; 
+  justify-content: center;  
+	z-index: 100000;
 }
 
-.logo-btn {
-  background: none;
-  border: none;
-  color: white;
-  font-size: 1.5rem;
-  cursor: pointer;
-  font-weight: bold;
+.loader__element {
+  border-radius: 100%;
+  border: var(--size) solid var(--point-color);
+  margin: calc(var(--size)*2);
 }
 
-/* Middle for Date */
-.navbar .middle {
-  flex-grow: 1;
-  text-align: center;
-  margin-right: 73px;
+.loader__element:nth-child(1) {
+  animation: preloader .6s ease-in-out alternate infinite;
+}
+.loader__element:nth-child(2) {
+  animation: preloader .6s ease-in-out alternate .2s infinite;
 }
 
-.navbar .middle li {
-  list-style: none;
-  font-size: 1.2rem;
+.loader__element:nth-child(3) {
+  animation: preloader .6s ease-in-out alternate .4s infinite;
 }
 
-/* Right side for Hamburger */
-.navbar .right {
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
+@keyframes preloader {
+  100% { transform: scale(2); }
 }
 
-.hamburger-menu {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  width: 25px;
-  height: 20px;
-  cursor: pointer;
-}
-
-.hamburger-menu div {
-  height: 3px;
-  background-color: white;
-  border-radius: 5px;
-}
-
-/* Dropdown menu */
-.menu-dropdown {
-  display: block;
-  position: absolute;
-  top: 60px;
-  right: 10px;
-  background-color: #ff7c7c;
-  padding: 1rem;
-  border-radius: 5px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  width: 150px;
-}
-
-.menu-dropdown ul {
-  padding: 0;
+body {
   margin: 0;
+  padding: 0;
+  font-family: "Arial", sans-serif;
+  background-color: #f4f4f9;
+  color: #333;
 }
 
-.menu-dropdown ul li {
-  list-style: none;
-  padding: 10px;
-  cursor: pointer;
-  color: white;
+
+@keyframes l43 {
+  0%     {background-position: calc(0*100%/3) 50% ,calc(1*100%/3) 50% ,calc(2*100%/3) 50% ,calc(3*100%/3) 50% }
+  16.67% {background-position: calc(0*100%/3) 0   ,calc(1*100%/3) 50% ,calc(2*100%/3) 50% ,calc(3*100%/3) 50% }
+  33.33% {background-position: calc(0*100%/3) 100%,calc(1*100%/3) 0   ,calc(2*100%/3) 50% ,calc(3*100%/3) 50% }
+  50%    {background-position: calc(0*100%/3) 50% ,calc(1*100%/3) 100%,calc(2*100%/3) 0   ,calc(3*100%/3) 50% }
+  66.67% {background-position: calc(0*100%/3) 50% ,calc(1*100%/3) 50% ,calc(2*100%/3) 100%,calc(3*100%/3) 0   }
+  83.33% {background-position: calc(0*100%/3) 50% ,calc(1*100%/3) 50% ,calc(2*100%/3) 50% ,calc(3*100%/3) 100%}
+  100%   {background-position: calc(0*100%/3) 50% ,calc(1*100%/3) 50% ,calc(2*100%/3) 50% ,calc(3*100%/3) 50% }
+}
+.app-container {
+  text-align: center;
+  padding: px;
 }
 
-.menu-dropdown ul li:hover {
-  text-decoration: underline;
-  scale: 1.2;
-  transition: 1s;
-}
-
-/* Responsive Styles */
-@media (max-width: 550px) {
-  .navbar .middle {
-    font-size: 1rem;
+  .title {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+    color: #2c3e50;
   }
-
-  .navbar .right {
-    display: block;
-  }
-
-  .navbar .left {
-    font-size: 1rem;
-  }
-
-  .menu-dropdown {
-    width: 100%;
-  }
+.paragraph {
+  font-size: 1.2rem;
+  margin-bottom: 20px;
+  color: #555;
+  padding: 3vh;
 }
-
-
-.content {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  margin-top: 4rem; /* Add top margin to avoid overlap with navbar */
-}
-.status-out{
-  margin-top: 1rem;
-  padding: 1rem;
-  font-weight: bold;
-  background-color: white;
-}
-.grid-container {
+.data-container {
   display: grid;
-  grid-template-areas:
-    "top top top"
-    "left table right"
-    "bottom bottom bottom";
-  grid-template-rows: 1fr 2fr 1fr;
-  grid-template-columns: 1fr 2fr 1fr;
+  justify-content: center;
+  gap: 35px;
+  grid-template-areas: 
+  "desk1 desk2"
+  "desk3 desk4";              ;
+}
+@media screen and (max-width: 768px) {
+  .data-container {
+    grid-template-areas: 
+    "desk1"
+    "desk2"
+    "desk3"
+    "desk4";
+  }
   
-  width: 80vw; /* Adjust width for responsiveness */
-  max-width: 1000px; /* Increase max-width for larger screens */
-  margin-top: 18vh;
-  height: 400px; /* Increase height for larger table and chairs */
-
+}
+#desk1{
+  grid-area: desk1;
+}
+#desk2{
+  grid-area: desk2;
+}
+#desk3{
+  grid-area: desk3;
+}
+#desk4{
+  grid-area: desk4;
 }
 
-.table {
-  grid-area: table;
-  background: #ff2c2ce4;
-  box-shadow: 0 4px 6px rgba(0, 0, 1, 0.5);
-  border-radius: 8px;
+.desk {
+  background: #ffffff;
+  border: 2px solid #e0e0e0;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  color: #333;
+  width: 250px;
+  font-size: 0.9rem;
+  text-align: left;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.desk:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+}
+
+.desk h2 {
+  font-size: 1.2rem;
+  margin-bottom: 15px;
+  color: #2c3e50;
+}
+
+.desk p {
+  margin: 5px 0;
+}
+
+.loading {
+  font-size: 1.2rem;
+  color: #555;
+}
+
+.chair-container {
   display: flex;
-  font-weight: bold;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: 2rem; /* Increase font size for better visibility */
-  color: #ffffff;
-  animation-name: rotate;
-  animation-duration: 0.5s;
-  animation-timing-function: linear;
-  transform-origin: center;
-  will-change: transform;
-  width: 100%; /* Adjust width for larger size */
-  height: 100%; /* Adjust height for larger size */
+  justify-content: space-around;
+  margin-top: 10px;
 }
 
 .chair {
-  background-image: url('./assets/occu.png'); /* Set the image */
-  background-size: cover; /* Ensure the image covers the chair container */
-  background-position: center; /* Center the image */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.25rem; /* Increase font size */
-  color: white;
-  height: 100px; /* Increase height for larger size */
-  width: 150px; /* Increase width for larger size */
-  animation-name: rotate;
-  animation-duration: 1s;
-  animation-timing-function: linear;
-  transform-origin: center;
-  will-change: transform;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 2px solid #ccc;
+  background-color: #f4f4f9;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
 
-.chair.top {
-  grid-area: top;
-  justify-self: center;
+.chair.occupied {
+  background-color: #e74c3c;
+  box-shadow: 0 2px 6px rgba(231, 76, 60, 0.5);
 }
 
-.chair.left {
-  grid-area: left;
-  align-self: center;
-  justify-self: start;
-}
-
-.chair.right {
-  grid-area: right;
-  align-self: center;
-  justify-self: end;
-}
-
-.chair.bottom {
-  grid-area: bottom;
-  justify-self: center;
-  margin-top: 5vh;
-}
-
-.occupied-false {
-  background-image: url('./assets/nooccu.png');
-}
-
-.status-in {
-  font-size: 1rem;
-  margin-top: 1rem;
-}
-.status-out {
-  font-size: 1rem;
-  margin-top: 6rem;
-}
-
-/* Media Query for larger screens */
-@media (max-width: 768px) {
-  .grid-container {
-    max-width: 800px;
-    height: 600px;
-  }
-  .card {
-    width: 50%; /* Adjust the card width to 50% of the screen on large devices */
-  } 
-
-}
-
-@media (max-width: 450px) {
-
-  .chair{
-    height: 50px;
-    width: 75px;
-    display: none;
-  
-  }
-  
-
- 
-  
+.chair.available {
+  background-color: #2ecc71;
+  box-shadow: 0 2px 6px rgba(46, 204, 113, 0.5);
 }
