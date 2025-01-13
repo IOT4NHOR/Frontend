@@ -41,7 +41,7 @@ const Dashboard = () => {
   // Process API data for charting
   const processData = (apiData) => {
     return apiData.map((item) => ({
-      date: new Date(item.date_time).toLocaleTimeString(),
+      date: new Date(item.date_time).toUTCString(),
       people_desk1: item.people_desk1,
       people_desk2: item.people_desk2,
       object_desk1_count: item.object_desk1.length,
