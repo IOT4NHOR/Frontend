@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import {
   LineChart,
   Line,
@@ -10,8 +10,6 @@ import {
   PieChart,
   Pie,
   Cell,
-  BarChart,
-  Bar,
 } from "recharts";
 import Navbar from "./Navbar";
 
@@ -20,16 +18,24 @@ const Dashboard = () => {
   const [smoothedData, setSmoothedData] = useState([]);
   const COLORS = ["#8884d8", "#82ca9d"];
 
-  // Fetch data from API on mount
-  useEffect(() => {
+  // Fetch and process data
+  const fetchData = () => {
     fetch("http://iot4gler-iotsmartcam.scnd.space:3000/all")
       .then((response) => response.json())
       .then((data) => {
-        const processed = processData(data); // Process the fetched data
+        const processed = processData(data);
         setData(processed);
-        setSmoothedData(averageData(processed, 5)); // Smooth data with every 5 points averaged
+        setSmoothedData(averageData(processed, 5));
       })
       .catch((error) => console.error("Error fetching data:", error));
+  };
+
+  
+  useEffect(() => {
+    fetchData(); 
+    const interval = setInterval(fetchData, 10000); 
+
+    return () => clearInterval(interval); 
   }, []);
 
   // Process API data for charting
@@ -65,20 +71,19 @@ const Dashboard = () => {
     return result;
   };
 
-  const calculateAverages = () => ({
+  const calculateAverages = () => (data.length > 0 ? {
     avgPeopleDesk1: +(data.reduce((sum, d) => sum + d.people_desk1, 0) / data.length).toFixed(2),
     avgPeopleDesk2: +(data.reduce((sum, d) => sum + d.people_desk2, 0) / data.length).toFixed(2),
     avgObjectsDesk1: +(data.reduce((sum, d) => sum + d.object_desk1_count, 0) / data.length).toFixed(2),
     avgObjectsDesk2: +(data.reduce((sum, d) => sum + d.object_desk2_count, 0) / data.length).toFixed(2),
-  });
+  } : { avgPeopleDesk1: 0, avgPeopleDesk2: 0, avgObjectsDesk1: 0, avgObjectsDesk2: 0 });
 
   const { avgPeopleDesk1, avgPeopleDesk2, avgObjectsDesk1, avgObjectsDesk2 } = calculateAverages();
 
   return (
   <>
-   <Navbar/>
+    <Navbar/>
     <div style={{ padding: "20px", fontFamily: "Arial" }}>
-        
       <h1>Dashboard</h1>
       <div style={{ display: "flex", gap: "20px", marginBottom: "40px" }}>
         <div style={{ padding: "20px", border: "1px solid #ccc", borderRadius: "8px", flex: 1 }}>
@@ -125,7 +130,6 @@ const Dashboard = () => {
       </LineChart>
     </div>
   </>
- 
   );
 };
 
