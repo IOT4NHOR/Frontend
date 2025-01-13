@@ -1,9 +1,20 @@
 import React, { useState, useEffect } from "react";
 import "./App.css";
-import Swal from "sweetalert2";
+import Navbar from "./components/Navbar.jsx";
+import Alert from "./components/Alert";
 
 function App() {
   const [data, setData] = useState(null);
+  const [alerts, setAlerts] = useState([]);
+
+  const addAlert = (message) => {
+    const id = Date.now(); // Unique ID for each alert
+    setAlerts((prevAlerts) => [...prevAlerts, { id, message }]);
+  };
+
+  const removeAlert = (id) => {
+    setAlerts((prevAlerts) => prevAlerts.filter((alert) => alert.id !== id));
+  };
 
   const fetchData = async () => {
     try {
@@ -26,36 +37,16 @@ function App() {
       );
 
       if (forgottenDesks.length > 0) {
-        let forgottenMessage = "";
-
         forgottenDesks.forEach((desk) => {
           forgottenData[desk].forEach((itemData) => {
-            forgottenMessage += `${itemData.message}\n`;
+            addAlert(itemData.message);
           });
-        });
-
-        Swal.fire({
-          title: "Forgotten Items Detected!",
-          text: forgottenMessage.trim(),
-          icon: "warning",
-          confirmButtonText: "Okay",
         });
       }
     } catch (error) {
       console.error("Error fetching forgotten items:", error);
     }
   };
-
-  useEffect(() => {
-    fetchData();
-
-    const interval = setInterval(() => {
-      fetchData();
-      fetchForgottenItems(); // Check for forgotten items every 10 seconds
-    }, 10000);
-
-    return () => clearInterval(interval);
-  }, []);
 
   const renderChairs = (peopleCount) => {
     const chairs = [];
@@ -85,18 +76,21 @@ function App() {
     }
   };
 
-  function test() {
-    Swal.fire({
-      title: "You Lost item!",
-      text: "You forgot the {data} on the table {table}",
-      icon: "error",
-      confirmButtonText: "Ok",
-    });
-  }
+  useEffect(() => {
+    fetchData();
+
+    const interval = setInterval(() => {
+      fetchData();
+      fetchForgottenItems();
+    }, 10000);
+
+    return () => clearInterval(interval);
+  }, []);
 
   return (
     <div className="app-container">
-      <h1 className="title">ROOM 1 </h1>
+      <Navbar />
+      <h1 className="title">ROOM 1</h1>
       <h2 className="paragraph">Developed by Iot4Nhor</h2>
       {data ? (
         <div className="data-container">
@@ -104,28 +98,28 @@ function App() {
             <h2>Desk 1</h2>
             <p><strong>People:</strong> {data.people_desk1}</p>
             <p><strong>Objects:</strong> {data.object_desk1.map((obj) => renderObjectEmoji(obj)).join(", ")}</p>
-            <p><strong>Date & Time:</strong> {new Date(data.date_time).toLocaleString()}</p>
+            <p><strong>Date & Time:</strong> {new Date(data.date_time).toUTCString()}</p>
             <div className="chair-container">{renderChairs(data.people_desk1)}</div>
           </div>
           <div className="desk">
             <h2>Desk 2</h2>
             <p><strong>People:</strong> {data.people_desk2}</p>
             <p><strong>Objects:</strong> {data.object_desk2.map((obj) => renderObjectEmoji(obj)).join(", ")}</p>
-            <p><strong>Date & Time:</strong> {new Date(data.date_time).toLocaleString()}</p>
+            <p><strong>Date & Time:</strong> {new Date(data.date_time).toUTCString()}</p>
             <div className="chair-container">{renderChairs(data.people_desk2)}</div>
           </div>
           <div className="desk">
             <h2>Desk 3</h2>
             <p><strong>People:</strong> None</p>
             <p><strong>Objects:</strong> None</p>
-            <p><strong>Date & Time:</strong> {new Date(data.date_time).toLocaleString()}</p>
+            <p><strong>Date & Time:</strong> {new Date(data.date_time).toUTCString()}</p>
             <div className="chair-container">{renderChairs(4)}</div>
           </div>
           <div className="desk">
             <h2>Desk 4</h2>
             <p><strong>People:</strong> None</p>
             <p><strong>Objects:</strong> None</p>
-            <p><strong>Date & Time:</strong> {new Date(data.date_time).toLocaleString()}</p>
+            <p><strong>Date & Time:</strong> {new Date(data.date_time).toUTCString()}</p>
             <div className="chair-container">{renderChairs(4)}</div>
           </div>
         </div>
@@ -136,6 +130,17 @@ function App() {
           <span className="loader__element"></span>
         </div>
       )}
+
+      {/* Render Alerts */}
+      <div className="alert-container">
+        {alerts.map((alert) => (
+          <Alert
+            key={alert.id}
+            message={alert.message}
+            onClose={() => removeAlert(alert.id)}
+          />
+        ))}
+      </div>
     </div>
   );
 }
