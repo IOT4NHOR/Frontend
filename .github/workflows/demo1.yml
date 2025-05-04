@@ -27,5 +27,9 @@ jobs:
           curl -X POST \
             "${{ secrets.DOKPLOY_IP }}" \
             -H "Content-Type: application/json" \
+            -d '{}'
+
+
+            
 
 
