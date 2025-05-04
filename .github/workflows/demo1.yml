@@ -23,12 +23,9 @@ jobs:
           username: ${{ secrets.OVPN_USERNAME }}
           password: ${{ secrets.OVPN_PASSWORD }}
       - name: Trigger Dokploy Deployment via Webhook
-        run: |
-          curl -X POST \
-            "${{ secrets.DOKPLOY_IP }}" \
-            -H "Content-Type: application/json" \
-            -d '{}'
-
+        uses: distributhor/workflow-webhook@v3
+        with:
+          webhook_url: ${{ secrets.DOKPLOY_IP }}
 
             
 
