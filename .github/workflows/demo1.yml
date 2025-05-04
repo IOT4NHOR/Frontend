@@ -1,0 +1,36 @@
+name: GitHub Action
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Install OpenVPN
+        run: |
+          sudo apt update
+          sudo apt install -y openvpn openvpn-systemd-resolved
+      - name: Connect to VPN
+        uses: "kota65535/github-openvpn-connect-action@v2"
+        with:
+          config_file: .github/workflows/sitst-client.ovpn
+          username: ${{ secrets.OVPN_USERNAME }}
+          password: ${{ secrets.OVPN_PASSWORD }}
+      - name: Trigger Dokploy Deployment
+        run: |
+          curl -X 'POST' \
+            'https://${{ secrets.DOKPLOY_IP }}/api/trpc/application.deploy' \
+            -H 'accept: application/json' \
+            -H 'x-api-key: ${{ secrets.DOKPLOY_API_ID }}' \
+            -H 'Content-Type: application/json' \
+            -d '{
+              "json": {
+                "applicationId": "${{ secrets.DOKPLOYAPPID }}"
+              }
+            }'
