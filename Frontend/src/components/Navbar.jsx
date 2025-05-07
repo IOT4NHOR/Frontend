@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import logonav from "../assets//SITKMUTT_logo.png"
+import logonav from "../assets//SIT30L.png"
 const Navbar = () => {
   return (
    <nav className="w-full bg-gray-900 p-4 flex justify-between items-center shadow-lg">

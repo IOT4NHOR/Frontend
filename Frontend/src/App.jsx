@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import logonav from "./assets/SITKMUTT_logo.png";
+import logonav from "./assets/SIT30L.png";
 import robot from "./assets/robot.png";
 import sitlogo from "./assets/sitlogo.png";
 import mockData from "../Backend/mockdata";
