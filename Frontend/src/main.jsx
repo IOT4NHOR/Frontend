@@ -8,8 +8,8 @@ import DashBoard from './page/DashBoard.jsx';
 createRoot(document.getElementById('root')).render(
   <BrowserRouter>
     <Routes>
-      <Route path="/" element={<App />} />
-      <Route path="/Dashboard" element={<DashBoard />} />
+      <Route path="/" element={<DashBoard />} />
+      <Route path="/Dashboard" element={<App />} />
     </Routes>
   </BrowserRouter>,
 )
