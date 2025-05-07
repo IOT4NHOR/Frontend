@@ -4,6 +4,7 @@ import robot from "./assets/robot.png";
 import sitlogo from "./assets/sitlogo.png";
 import mockData from "../Backend/mockdata";
 import { ChevronDown, Building2, GraduationCap } from "lucide-react";
+import Navbar from "./components/Navbar";
 import "./App.css";
 
 function App() {
@@ -91,16 +92,7 @@ function App() {
   return (
     <div className="min-h-screen flex flex-col bg-gradient-to-br from-blue-50 to-gray-100 text-gray-800 font-sans">
       {/* Navbar */}
-      <nav className="w-full bg-gray-900 p-4 flex justify-between items-center shadow-lg">
-        <img
-          src={logonav}
-          alt="SITKMUTT Logo"
-          className="h-12 transition-transform hover:scale-105"
-        />
-        <div className="text-white font-semibold text-lg animate-slide-in-right right-btn-nav">
-          Seating Monitor
-        </div>
-      </nav>
+        <Navbar/>
 
       {/* Hero Section */}
       <section className="hero-section flex flex-col md:flex-row items-center justify-center py-16 px-6 bg-white relative overflow-hidden">
@@ -265,14 +257,14 @@ function App() {
                 <p className="text-gray-600">
                   <strong>People:</strong> {zone.people || "None"}
                 </p>
-                <p className="text-gray-600">
+                {/* <p className="text-gray-600">
                   <strong>Objects:</strong>{" "}
                   {zone.objects.length > 0
                     ? zone.objects
                         .map((obj) => renderObjectEmoji(obj))
                         .join(", ")
                     : "None"}
-                </p>
+                </p> */}
                 <p className="text-gray-600">
                   <strong>Date & Time:</strong>{" "}
                   {new Date(zone.date_time).toUTCString()}
