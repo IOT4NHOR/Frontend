@@ -4,7 +4,16 @@ import { Maximize2, RefreshCw, Download, ExternalLink } from 'lucide-react';
 
 function DashBoard() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-50">
+    <div className="min-h-screen bg-gray-100" style={{
+      '--main-color': '#ecf0f1',
+      '--point-color': 'black',
+      '--size': '5px',
+      '--card-bg': 'rgba(0, 0, 0, 0.1)',
+      '--card-shadow': '0 4px 30px rgba(0, 0, 0, 0.1)',
+      '--hover-shadow': '0 8px 40px rgba(0, 0, 0, 0.2)',
+      '--transition-speed': '0.9s',
+      '--glow-color': 'rgba(59, 130, 246, 0.5)'
+    }}>
       <Navbar />
       
       <div className="container mx-auto px-4 py-6">
@@ -19,24 +28,48 @@ function DashBoard() {
               <RefreshCw size={16} className="mr-2" />
               Refresh
             </button>
-            <button className="px-4 py-2 bg-blue-600 text-white rounded-lg shadow hover:shadow-md transition duration-300 flex items-center">
+            <button className="px-4 py-2 bg-blue-500 text-white rounded-lg shadow hover:shadow-md transition duration-300 flex items-center">
               <Download size={16} className="mr-2" />
               Export
             </button>
           </div>
         </div>
         
-        {/* Main Overview Panel (Larger) */}
-        <div className="mb-6">
-          {/* panel Title หลัก */}
-          <div className="bg-white rounded-xl shadow-lg overflow-hidden border border-blue-200 transition-all duration-300 hover:shadow-xl">
-            <div className="p-4 border-b border-gray-100 flex justify-between items-center bg-gradient-to-r from-blue-600 to-indigo-600">
-              <h3 className="font-semibold text-white text-lg">Main Overview</h3>
+        {/* Main Overview and Total Room Occupancy */}
+        <div className="flex flex-col lg:flex-row gap-6 mb-6">
+          {/* Total Room Occupancy */}
+          <div className="w-full lg:w-[20%] bg-white rounded-lg shadow-md overflow-hidden border border-gray-200 transition-all duration-300 hover:shadow-[var(--hover-shadow)]">
+            <div className="p-4 border-b border-gray-100 flex justify-between items-center bg-gray-900">
+              <h3 className="font-semibold text-white">Total Room Occupancy</h3>
               <div className="flex space-x-2">
-                <button className="p-1 hover:bg-blue-500 rounded text-white">
+                <button className="p-1 hover:bg-[var(--glow-color)] rounded text-white">
                   <Maximize2 size={16} />
                 </button>
-                <button className="p-1 hover:bg-blue-500 rounded text-white">
+                <button className="p-1 hover:bg-[var(--glow-color)] rounded text-white">
+                  <ExternalLink size={16} />
+                </button>
+              </div>
+            </div>
+            <div className="p-2">
+              <iframe 
+                src="https://iotfourdb.sit.kmutt.ac.th:3333/d-solo/aeku7hva3ypdsa/sit-2-floor?orgId=1&from=1746336060961&to=1746336196118&timezone=browser&panelId=10&__feature.dashboardSceneSolo" 
+                width="100%" 
+                height="300" 
+                className="rounded-lg"
+                title="Total Room Occupancy"
+              ></iframe>
+            </div>
+          </div>
+
+          {/* Main Overview Panel */}
+          <div className="w-full lg:w-[80%] bg-white rounded-lg shadow-md overflow-hidden border border-gray-200 transition-all duration-300 hover:shadow-[var(--hover-shadow)]">
+            <div className="p-4 border-b border-gray-100 flex justify-between items-center bg-gray-900">
+              <h3 className="font-semibold text-white text-lg">Main Overview</h3>
+              <div className="flex space-x-2">
+                <button className="p-1 hover:bg-[var(--glow-color)] rounded text-white">
+                  <Maximize2 size={16} />
+                </button>
+                <button className="p-1 hover:bg-[var(--glow-color)] rounded text-white">
                   <ExternalLink size={16} />
                 </button>
               </div>
@@ -54,41 +87,16 @@ function DashBoard() {
         </div>
         
         {/* Other Panels Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
-          
-          {/* total in room */}
-          <div className="bg-white rounded-xl shadow-md overflow-hidden border border-gray-100 transition-all duration-300 hover:shadow-lg">
-            <div className="p-4 border-b border-gray-100 flex justify-between items-center bg-gradient-to-r from-blue-500 to-blue-600">
-              <h3 className="font-semibold text-white">Total Room Occupancy</h3>
-              <div className="flex space-x-2">
-                <button className="p-1 hover:bg-blue-400 rounded text-white">
-                  <Maximize2 size={16} />
-                </button>
-                <button className="p-1 hover:bg-blue-400 rounded text-white">
-                  <ExternalLink size={16} />
-                </button>
-              </div>
-            </div>
-            <div className="p-2">
-              <iframe 
-                src="https://iotfourdb.sit.kmutt.ac.th:3333/d-solo/aeku7hva3ypdsa/sit-2-floor?orgId=1&from=1746336060961&to=1746336196118&timezone=browser&panelId=10&__feature.dashboardSceneSolo" 
-                width="100%" 
-                height="200" 
-                className="rounded-lg"
-                title="Total Room Occupancy"
-              ></iframe>
-            </div>
-          </div>
-          
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
           {/* table1 */}
-          <div className="bg-white rounded-xl shadow-md overflow-hidden border border-gray-100 transition-all duration-300 hover:shadow-lg">
-            <div className="p-4 border-b border-gray-100 flex justify-between items-center bg-gradient-to-r from-green-500 to-green-600">
+          <div className="bg-white rounded-lg shadow-md overflow-hidden border border-gray-200 transition-all duration-300 hover:shadow-[var(--hover-shadow)]">
+            <div className="p-4 border-b border-gray-100 flex justify-between items-center bg-gray-900">
               <h3 className="font-semibold text-white">table1</h3>
               <div className="flex space-x-2">
-                <button className="p-1 hover:bg-green-400 rounded text-white">
+                <button className="p-1 hover:bg-[var(--glow-color)] rounded text-white">
                   <Maximize2 size={16} />
                 </button>
-                <button className="p-1 hover:bg-green-400 rounded text-white">
+                <button className="p-1 hover:bg-[var(--glow-color)] rounded text-white">
                   <ExternalLink size={16} />
                 </button>
               </div>
@@ -105,14 +113,14 @@ function DashBoard() {
           </div>
           
           {/* table2 */}
-          <div className="bg-white rounded-xl shadow-md overflow-hidden border border-gray-100 transition-all duration-300 hover:shadow-lg">
-            <div className="p-4 border-b border-gray-100 flex justify-between items-center bg-gradient-to-r from-amber-500 to-amber-600">
+          <div className="bg-white rounded-lg shadow-md overflow-hidden border border-gray-200 transition-all duration-300 hover:shadow-[var(--hover-shadow)]">
+            <div className="p-4 border-b border-gray-100 flex justify-between items-center bg-gray-900">
               <h3 className="font-semibold text-white">table2</h3>
               <div className="flex space-x-2">
-                <button className="p-1 hover:bg-amber-400 rounded text-white">
+                <button className="p-1 hover:bg-[var(--glow-color)] rounded text-white">
                   <Maximize2 size={16} />
                 </button>
-                <button className="p-1 hover:bg-amber-400 rounded text-white">
+                <button className="p-1 hover:bg-[var(--glow-color)] rounded text-white">
                   <ExternalLink size={16} />
                 </button>
               </div>
@@ -130,14 +138,14 @@ function DashBoard() {
           </div>
           
           {/* table3 */}
-          <div className="bg-white rounded-xl shadow-md overflow-hidden border border-gray-100 transition-all duration-300 hover:shadow-lg">
-            <div className="p-4 border-b border-gray-100 flex justify-between items-center bg-gradient-to-r from-red-500 to-red-600">
+          <div className="bg-white rounded-lg shadow-md overflow-hidden border border-gray-200 transition-all duration-300 hover:shadow-[var(--hover-shadow)]">
+            <div className="p-4 border-b border-gray-100 flex justify-between items-center bg-gray-900">
               <h3 className="font-semibold text-white">table3</h3>
               <div className="flex space-x-2">
-                <button className="p-1 hover:bg-red-400 rounded text-white">
+                <button className="p-1 hover:bg-[var(--glow-color)] rounded text-white">
                   <Maximize2 size={16} />
                 </button>
-                <button className="p-1 hover:bg-red-400 rounded text-white">
+                <button className="p-1 hover:bg-[var(--glow-color)] rounded text-white">
                   <ExternalLink size={16} />
                 </button>
               </div>
@@ -155,14 +163,14 @@ function DashBoard() {
           </div>
           
           {/* table4 */}
-          <div className="bg-white rounded-xl shadow-md overflow-hidden border border-gray-100 transition-all duration-300 hover:shadow-lg">
-            <div className="p-4 border-b border-gray-100 flex justify-between items-center bg-gradient-to-r from-sky-500 to-sky-600">
+          <div className="bg-white rounded-lg shadow-md overflow-hidden border border-gray-200 transition-all duration-300 hover:shadow-[var(--hover-shadow)]">
+            <div className="p-4 border-b border-gray-100 flex justify-between items-center bg-gray-900">
               <h3 className="font-semibold text-white">table4</h3>
               <div className="flex space-x-2">
-                <button className="p-1 hover:bg-sky-400 rounded text-white">
+                <button className="p-1 hover:bg-[var(--glow-color)] rounded text-white">
                   <Maximize2 size={16} />
                 </button>
-                <button className="p-1 hover:bg-sky-400 rounded text-white">
+                <button className="p-1 hover:bg-[var(--glow-color)] rounded text-white">
                   <ExternalLink size={16} />
                 </button>
               </div>
@@ -180,14 +188,14 @@ function DashBoard() {
           </div>
           
           {/* table5 */}
-          <div className="bg-white rounded-xl shadow-md overflow-hidden border border-gray-100 transition-all duration-300 hover:shadow-lg">
-            <div className="p-4 border-b border-gray-100 flex justify-between items-center bg-gradient-to-r from-purple-500 to-purple-600">
+          <div className="bg-white rounded-lg shadow-md overflow-hidden border border-gray-200 transition-all duration-300 hover:shadow-[var(--hover-shadow)]">
+            <div className="p-4 border-b border-gray-100 flex justify-between items-center bg-gray-900">
               <h3 className="font-semibold text-white">table5</h3>
               <div className="flex space-x-2">
-                <button className="p-1 hover:bg-purple-400 rounded text-white">
+                <button className="p-1 hover:bg-[var(--glow-color)] rounded text-white">
                   <Maximize2 size={16} />
                 </button>
-                <button className="p-1 hover:bg-purple-400 rounded text-white">
+                <button className="p-1 hover:bg-[var(--glow-color)] rounded text-white">
                   <ExternalLink size={16} />
                 </button>
               </div>
@@ -205,14 +213,14 @@ function DashBoard() {
           </div>
           
           {/* table6 */}
-          <div className="bg-white rounded-xl shadow-md overflow-hidden border border-gray-100 transition-all duration-300 hover:shadow-lg">
-            <div className="p-4 border-b border-gray-100 flex justify-between items-center bg-gradient-to-r from-emerald-500 to-emerald-600">
+          <div className="bg-white rounded-lg shadow-md overflow-hidden border border-gray-200 transition-all duration-300 hover:shadow-[var(--hover-shadow)]">
+            <div className="p-4 border-b border-gray-100 flex justify-between items-center bg-gray-900">
               <h3 className="font-semibold text-white">table6</h3>
               <div className="flex space-x-2">
-                <button className="p-1 hover:bg-emerald-400 rounded text-white">
+                <button className="p-1 hover:bg-[var(--glow-color)] rounded text-white">
                   <Maximize2 size={16} />
                 </button>
-                <button className="p-1 hover:bg-emerald-400 rounded text-white">
+                <button className="p-1 hover:bg-[var(--glow-color)] rounded text-white">
                   <ExternalLink size={16} />
                 </button>
               </div>
@@ -220,7 +228,7 @@ function DashBoard() {
             <div className="p-2">
               <iframe 
                 src="https://iotfourdb.sit.kmutt.ac.th:3333/d-solo/aeku7hva3ypdsa/sit-2-floor?orgId=1&from=1746334979895&to=1746335110446&timezone=browser&panelId=4&__feature.dashboardSceneSolo" 
-                width="100%" 
+               Bricks                width="100%" 
                 height="200" 
                 className="rounded-lg"
                 title="Table 6"
@@ -230,21 +238,21 @@ function DashBoard() {
           </div>
           
           {/* table7 */}
-          <div className="bg-white rounded-xl shadow-md overflow-hidden border border-gray-100 transition-all duration-300 hover:shadow-lg">
-            <div className="p-4 border-b border-gray-100 flex justify-between items-center bg-gradient-to-r from-cyan-500 to-cyan-600">
+          <div className="bg-white rounded-lg shadow-md overflow-hidden border border-gray-200 transition-all duration-300 hover:shadow-[var(--hover-shadow)]">
+            <div className="p-4 border-b border-gray-100 flex justify-between items-center bg-gray-900">
               <h3 className="font-semibold text-white">table7</h3>
               <div className="flex space-x-2">
-                <button className="p-1 hover:bg-cyan-400 rounded text-white">
+                <button className="p-1 hover:bg-[var(--glow-color)] rounded text-white">
                   <Maximize2 size={16} />
                 </button>
-                <button className="p-1 hover:bg-cyan-400 rounded text-white">
+                <button className="p-1 hover:bg-[var(--glow-color)] rounded text-white">
                   <ExternalLink size={16} />
                 </button>
               </div>
             </div>
             <div className="p-2">
               <iframe 
-                src="https://iotfourdb.sit.kmutt.ac.th:3333/d-solo/aeku7hva3ypdsa/sit-2-floor?orgId=1&from=1746334979895&to=1746335110446&timezone=browser&panelId=3&__feature.dashboardSceneSolo" 
+                src="https://iotfourdb.sit.kmutt.ac.th:3333/d-solo/aeku7hva3yp垫sa/sit-2-floor?orgId=1&from=1746334979895&to=1746335110446&timezone=browser&panelId=3&__feature.dashboardSceneSolo" 
                 width="100%" 
                 height="200" 
                 className="rounded-lg"
@@ -255,14 +263,14 @@ function DashBoard() {
           </div>
           
           {/* table8 */}
-          <div className="bg-white rounded-xl shadow-md overflow-hidden border border-gray-100 transition-all duration-300 hover:shadow-lg">
-            <div className="p-4 border-b border-gray-100 flex justify-between items-center bg-gradient-to-r from-indigo-500 to-indigo-600">
+          <div className="bg-white rounded-lg shadow-md overflow-hidden border border-gray-200 transition-all duration-300 hover:shadow-[var(--hover-shadow)]">
+            <div className="p-4 border-b border-gray-100 flex justify-between items-center bg-gray-900">
               <h3 className="font-semibold text-white">table8</h3>
               <div className="flex space-x-2">
-                <button className="p-1 hover:bg-indigo-400 rounded text-white">
+                <button className="p-1 hover:bg-[var(--glow-color)] rounded text-white">
                   <Maximize2 size={16} />
                 </button>
-                <button className="p-1 hover:bg-indigo-400 rounded text-white">
+                <button className="p-1 hover:bg-[var(--glow-color)] rounded text-white">
                   <ExternalLink size={16} />
                 </button>
               </div>
@@ -278,12 +286,11 @@ function DashBoard() {
               ></iframe>
             </div>
           </div>
-          
         </div>
       </div>
       
       {/* Footer */}
-      <div className="bg-gradient-to-r from-blue-600 to-indigo-600 mt-6 py-4">
+      <div className="bg-blue-500 mt-6 py-4">
         <div className="container mx-auto px-4 text-center text-white text-sm">
           <p>© 2025 SIT IoT Monitoring System. All rights reserved.</p>
         </div>
