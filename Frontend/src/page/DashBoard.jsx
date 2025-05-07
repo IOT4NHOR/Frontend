@@ -251,14 +251,11 @@ function DashBoard() {
               </div>
             </div>
             <div className="p-2">
-              <iframe 
-                src="https://iotfourdb.sit.kmutt.ac.th:3333/d-solo/aeku7hva3yp垫sa/sit-2-floor?orgId=1&from=1746334979895&to=1746335110446&timezone=browser&panelId=3&__feature.dashboardSceneSolo" 
+            <iframe src="https://iotfourdb.sit.kmutt.ac.th:3333/d-solo/aeku7hva3ypdsa/sit-2-floor?orgId=1&from=1746334979895&to=1746335110446&timezone=browser&panelId=3&__feature.dashboardSceneSolo"  src="https://iotfourdb.sit.kmutt.ac.th:3333/d-solo/aeku7hva3ypdsa/sit-2-floor?orgId=1&from=1746334979895&to=1746335110446&timezone=browser&panelId=8&__feature.dashboardSceneSolo" 
                 width="100%" 
                 height="200" 
                 className="rounded-lg"
-                title="Table 7"
-                frameBorder="0"
-              ></iframe>
+                title="Table 8" ></iframe>
             </div>
           </div>
           
